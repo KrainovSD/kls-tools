@@ -37,8 +37,8 @@ services:
     command: /bin/sh -c "redis-server --save 900 1 300 10 60 10000 --loglevel warning --maxmemory 512mb  --requirepass $$REDIS_PASSWORD"
     volumes:
       - ./redis:/root/redis
-    ports:
-      # - "6379:6379"
+    # ports:
+    #   - "6379:6379"
     networks:
       - backend
 
@@ -68,8 +68,8 @@ services:
         #   cpus: "0.25"
         #   memory: 200M
     restart: unless-stopped
-    ports:
-      # - "5432:5432"
+    # ports:
+    #   - "5432:5432"
     networks:
       - postgres
       - backend
