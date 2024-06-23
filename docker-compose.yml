@@ -96,9 +96,11 @@ services:
     command: server --console-address ":9001" /data/
     env_file:
       - ./minio/.env.minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
+    environment:
+      - MINIO_BROWSER_REDIRECT_URL=http://krainovservice.ru/minio/ui
+    # ports:
+    #   - "9000:9000"
+    #   - "9001:9001"
     volumes:
       - ./minio/data:/data
     healthcheck:
