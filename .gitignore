@@ -1,0 +1,5 @@
+*.env.*
+*data/
+minio/access.json
+rabbitmq/mnesia/
+rabbitmq/.erlang.cookie
