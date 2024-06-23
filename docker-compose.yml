@@ -60,7 +60,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
+          cpus: "0.20"
           memory: 500M
         # reservations:
         #   cpus: "0.25"
@@ -85,7 +85,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
+          cpus: "0.20"
           memory: 500M
     networks:
       - postgres
