@@ -3,3 +3,4 @@
 minio/access.json
 rabbitmq/mnesia/
 rabbitmq/.erlang.cookie
+nginx/test/

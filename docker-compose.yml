@@ -1,5 +1,15 @@
 version: "2.1"
 services:
+  nginx:
+    image: nginx:1.26
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./src:/usr/share/nginx/html
+    networks:
+      - backend
+
   rabbitmq:
     image: rabbitmq:3.10.7-management
     hostname: rabbitmq
@@ -13,9 +23,11 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    networks:
+      - backend
 
   redis:
-    image: redis:latest
+    image: redis:7.2.5
     restart: always
     env_file:
       - ./redis/.env.redis
@@ -24,6 +36,8 @@ services:
       - ./redis:/root/redis
     ports:
       - "6379:6379"
+    networks:
+      - backend
 
   postgres:
     container_name: postgres_container
@@ -56,6 +70,7 @@ services:
       - "5432:5432"
     networks:
       - postgres
+      - backend
 
   pgadmin:
     container_name: pgadmin_container
@@ -74,9 +89,10 @@ services:
           memory: 500M
     networks:
       - postgres
+      - backend
 
   minio:
-    image: minio/minio:latest
+    image: minio/minio:RELEASE.2024-06-22T05-26-45Z
     command: server --console-address ":9001" /data/
     env_file:
       - ./minio/.env.minio
@@ -91,6 +107,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    networks:
+      - backend
 
   jaeger:
     container_name: jaeger
@@ -102,6 +120,11 @@ services:
       - 6832:6832
     environment:
       - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - backend
+
 networks:
   postgres:
     driver: bridge
+  backend:
+    external: true
